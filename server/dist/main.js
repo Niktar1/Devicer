@@ -3,9 +3,21 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const core_1 = require("@nestjs/core");
 const app_module_1 = require("./app.module");
 const swagger_1 = require("@nestjs/swagger");
+const session = require("express-session");
+const passport = require("passport");
 async function start() {
     const app = await core_1.NestFactory.create(app_module_1.AppModule);
     const PORT = process.env.PORT || 5000;
+    app.use(session({
+        secret: process.env.SECRET_AUTH,
+        saveUninitialized: false,
+        resave: false,
+        cookie: {
+            maxAge: 60000,
+        }
+    }));
+    app.use(passport.initialize());
+    app.use(passport.session());
     app.enableCors({
         origin: 'http://localhost:3000',
     });

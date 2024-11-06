@@ -1,6 +1,6 @@
-import { Controller, Get, UseGuards } from '@nestjs/common';
-// import { AuthService } from './auth.service';
+import { Controller, Get, Req, UseGuards } from '@nestjs/common';
 import { GoogleAuthGuard } from './utils/Guards';
+import { Request } from 'express';
 
 @Controller('auth')
 export class AuthController {
@@ -8,26 +8,35 @@ export class AuthController {
 
     @Get('/login')
     login() {
-        return {msg: '/login msg'};
+        return { msg: '/login msg' };
     }
 
     // Passport
     @Get('/logout')
     logout() {
-        return {msg: '/logout msg'};
+        return { msg: '/logout msg' };
     }
 
     // Passport
     @Get('/google')
     @UseGuards(GoogleAuthGuard)
     logGoogle() {
-        return {msg: '/google msg'};
+        return { msg: '/google msg' };
     }
 
     @Get('/google/redirect')
-    @UseGuards(GoogleAuthGuard) 
+    @UseGuards(GoogleAuthGuard)
     redirect() {
-        return {msg: 'ok'}
+        return { msg: 'ok' }
     }
 
+    @Get('status')
+    user(@Req() request: Request) {
+        console.log(request.user)
+        if (request.user) {
+            return { msg: 'Authenticated' }
+        } else {
+            return { msg: 'Not Authenticated' }
+        }
+    }
 }

@@ -10,12 +10,26 @@ exports.AuthModule = void 0;
 const common_1 = require("@nestjs/common");
 const auth_controller_1 = require("./auth.controller");
 const GoogleStrategy_1 = require("./utils/GoogleStrategy");
+const auth_service_1 = require("./auth.service");
+const sequelize_1 = require("@nestjs/sequelize");
+const users_model_1 = require("../users/users.model");
+const Serializer_1 = require("./utils/Serializer");
 let AuthModule = class AuthModule {
 };
 exports.AuthModule = AuthModule;
 exports.AuthModule = AuthModule = __decorate([
     (0, common_1.Module)({
-        providers: [GoogleStrategy_1.GoogleStrategy],
+        imports: [
+            sequelize_1.SequelizeModule.forFeature([users_model_1.User])
+        ],
+        providers: [
+            GoogleStrategy_1.GoogleStrategy,
+            Serializer_1.SessionSerializer,
+            {
+                provide: 'AUTH_SERVICE',
+                useClass: auth_service_1.AuthService
+            }
+        ],
         controllers: [auth_controller_1.AuthController]
     })
 ], AuthModule);
