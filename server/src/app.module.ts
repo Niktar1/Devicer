@@ -7,12 +7,13 @@ import { RolesModule } from './roles/roles.module';
 import { Role } from './roles/roles.model';
 import { UserRoles } from './roles/user-roles.model';
 import { AuthModule } from './auth/auth.module';
+import { PassportModule } from '@nestjs/passport';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       envFilePath: `.${process.env.NODE_ENV}.env`
-  }),
+    }),
     SequelizeModule.forRoot({
       dialect: 'postgres',
       host: process.env.POSTGRES_HOST,
@@ -22,10 +23,12 @@ import { AuthModule } from './auth/auth.module';
       database: process.env.POSTGRES_DB,
       models: [User, Role, UserRoles],
       autoLoadModels: true
-  }),
+    }),
+    // Registring passport into app module
+    PassportModule.register({ session: true }),
     UsersModule,
     RolesModule,
     AuthModule,
   ],
 })
-export class AppModule {}
+export class AppModule { }

@@ -1,30 +1,27 @@
-import { Optional } from "sequelize";
 import { BelongsToMany, Column, DataType, Model, Table } from "sequelize-typescript";
 import { Role } from "src/roles/roles.model";
 import { UserRoles } from "src/roles/user-roles.model";
 
-interface UserAttrs {
+interface UserCreationAttrs {
     email: string;
-    password: string;
-    googleId: number;
-    displayName: string
+    password?: string;
+    googleId?: string;
+    displayName?: string;
 }
 
-interface UserCreationAttrs extends Optional<UserAttrs, "password" | "googleId" | "displayName"> {}
-
 @Table({tableName: 'users'})
-export class User extends Model<UserAttrs, UserCreationAttrs> {
+export class User extends Model<User, UserCreationAttrs> {
     @Column({type: DataType.INTEGER, unique: true, autoIncrement: true, primaryKey: true})
     id: number;
-
-    @Column({type: DataType.STRING})
-    displayName: string;
 
     @Column({type: DataType.STRING, allowNull: true})
     password: string;
     
-    @Column({type: DataType.STRING, unique: true, allowNull: true})
+    @Column({type: DataType.STRING, unique: true, allowNull: false})
     email: string;
+
+    @Column({type: DataType.STRING})
+    displayName: string;
 
     @Column({type: DataType.INTEGER, allowNull: true})
     googleId: string;

@@ -1,19 +1,16 @@
-import { Optional } from "sequelize";
 import { Model } from "sequelize-typescript";
 import { Role } from "src/roles/roles.model";
-interface UserAttrs {
+interface UserCreationAttrs {
     email: string;
-    password: string;
-    googleId: number;
-    displayName: string;
+    password?: string;
+    googleId?: string;
+    displayName?: string;
 }
-interface UserCreationAttrs extends Optional<UserAttrs, "password" | "googleId" | "displayName"> {
-}
-export declare class User extends Model<UserAttrs, UserCreationAttrs> {
+export declare class User extends Model<User, UserCreationAttrs> {
     id: number;
-    displayName: string;
     password: string;
     email: string;
+    displayName: string;
     googleId: string;
     banned: boolean;
     roles: Role[];

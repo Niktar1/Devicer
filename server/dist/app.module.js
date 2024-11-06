@@ -16,6 +16,7 @@ const roles_module_1 = require("./roles/roles.module");
 const roles_model_1 = require("./roles/roles.model");
 const user_roles_model_1 = require("./roles/user-roles.model");
 const auth_module_1 = require("./auth/auth.module");
+const passport_1 = require("@nestjs/passport");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -35,6 +36,7 @@ exports.AppModule = AppModule = __decorate([
                 models: [users_model_1.User, roles_model_1.Role, user_roles_model_1.UserRoles],
                 autoLoadModels: true
             }),
+            passport_1.PassportModule.register({ session: true }),
             users_module_1.UsersModule,
             roles_module_1.RolesModule,
             auth_module_1.AuthModule,

@@ -1,3 +1,4 @@
+import { Request } from 'express';
 export declare class AuthController {
     login(): {
         msg: string;
@@ -9,6 +10,9 @@ export declare class AuthController {
         msg: string;
     };
     redirect(): {
+        msg: string;
+    };
+    user(request: Request): {
         msg: string;
     };
 }
