@@ -36,3 +36,61 @@
     transform: rotate(360deg);
   }
 }
+
+/* Global */
+.container {
+  display: block;
+  width: 100%;
+}
+
+.btn {
+  background-color: #3075ff;
+  padding: 10px 50px;
+  border-radius: 20px;
+}
+
+.home-btn {
+  background-color: #8b8e92;
+  padding: 10px 30px;
+}
+/* Components */
+/* Home */
+.home {
+  /* color: #fff; */
+  font-size: 32px;
+  margin-bottom: 50px;
+}
+
+.login-btn {
+  color: #fff;
+}
+
+/* Login page */
+
+.login {
+  font-size: 32px;
+  margin-bottom: 50px;
+}
+
+.logform {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+
+.log-input{
+  width: 10%;
+  border: 1px solid gray;
+  padding: 7px;
+}
+
+.log-btn {
+  margin-top: 10px;
+  margin: 20px auto 0;
+
+}
+
+.logform input{
+  margin: 0 auto;
+}

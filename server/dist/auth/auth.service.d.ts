@@ -1,8 +1,11 @@
-import { User } from 'src/users/users.model';
-import { UserDetails } from 'src/utils/types';
+import { UsersService } from 'src/users/users.service';
+import { JwtService } from '@nestjs/jwt';
 export declare class AuthService {
-    private readonly userRepository;
-    constructor(userRepository: typeof User);
-    validateUser(details: UserDetails): Promise<User>;
-    findUser(id: number): Promise<User>;
+    private userService;
+    private jwtService;
+    constructor(userService: UsersService, jwtService: JwtService);
+    validateUser(email: string, password: string): Promise<{
+        id: number;
+    }>;
+    login(userId: number): string;
 }

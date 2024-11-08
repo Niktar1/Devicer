@@ -6,9 +6,9 @@ import { RolesService } from 'src/roles/roles.service';
 
 @Injectable()
 export class UsersService {
-    
+
     constructor(@InjectModel(User) private userRepository: typeof User,
-    private roleService: RolesService) {}
+        private roleService: RolesService) { }
 
     async createUser(dto: CreateUserDto) {
         const user = await this.userRepository.create(dto)
@@ -18,8 +18,23 @@ export class UsersService {
     }
 
     async getAllUsers() {
-        const users = await this.userRepository.findAll({include: {all: true}});
+        const users = await this.userRepository.findAll({ include: { all: true } });
         return users;
+    }
+
+    async findByEmail(email: string) {
+        return await this.userRepository.findOne({
+            where: {
+                email,
+            }
+        })
+    }
+
+    async findOne(id: number) {
+        return this.userRepository.findOne({
+            where: { id },
+            attributes: ['email','id']
+        });
     }
 
 }

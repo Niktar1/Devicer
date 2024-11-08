@@ -1,18 +1,9 @@
-import { Request } from 'express';
+import { AuthService } from './auth.service';
 export declare class AuthController {
-    login(): {
-        msg: string;
-    };
-    logout(): {
-        msg: string;
-    };
-    logGoogle(): {
-        msg: string;
-    };
-    redirect(): {
-        msg: string;
-    };
-    user(request: Request): {
-        msg: string;
-    };
+    private readonly authService;
+    constructor(authService: AuthService);
+    login(req: any): Promise<{
+        id: any;
+        token: string;
+    }>;
 }

@@ -1,29 +1,27 @@
-import { Injectable } from '@nestjs/common';
-import { InjectModel } from '@nestjs/sequelize';
-import { User } from 'src/users/users.model';
-import { UserDetails } from 'src/utils/types';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { UsersService } from 'src/users/users.service';
+import * as bcrypt from 'bcryptjs';
+import { JwtService } from '@nestjs/jwt';
+import { AuthJwtPayload } from './types/auth-jwtPayload';
 
 @Injectable()
 export class AuthService {
-  constructor(@InjectModel(User) private readonly userRepository: typeof User) { }
+    constructor(private userService: UsersService,
+        private jwtService: JwtService
+    ) { }
 
-  async validateUser(details: UserDetails) {
-    console.log('AuthService')
-    console.log(details)
-    const user = await this.userRepository.findOne({ where: { email: details.email } })
-    if (user) {
-      // handle updating the user.  yt video 55 minues time stamp 
+    async validateUser(email: string, password: string) {
+        const user = await this.userService.findByEmail(email);
+        if (!user) throw new UnauthorizedException("User not found!");
 
-      return user; // then return the new user
+        const isPasswordMatch = await bcrypt.compare(password, user.password);
+        if (!isPasswordMatch) throw new UnauthorizedException('Invalid credentials')
+
+        return { id: user.id };
     }
-    const newUser = this.userRepository.create(details);
-    (await newUser).save();
-    return newUser
-  }
 
-  async findUser(id: number) {
-    const user = await this.userRepository.findOne({ where: { id } })
-    return user;
-  }
-
+    login(userId: number) {
+        const payload: AuthJwtPayload = { sub: userId };
+        return this.jwtService.sign(payload)
+    }
 }
