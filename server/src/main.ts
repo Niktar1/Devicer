@@ -3,7 +3,6 @@ import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger";
 import * as session from 'express-session';
 import * as passport from 'passport';
-
 async function start() {
   const app = await NestFactory.create(AppModule);
   const PORT = process.env.PORT || 5000;
@@ -11,13 +10,15 @@ async function start() {
   //enabling sessions
   app.use(session({
     secret: process.env.SECRET_AUTH,
-    saveUninitialized: false,
-    resave: false,
+    saveUninitialized: false, // Do not create a session until something is stored
+    resave: false, // Session will not be saved if unmodified
     cookie: {
       maxAge: 60000,
+      httpOnly: true, 
+      secure: false
     }
   }))
-
+  
   //enable passport
   app.use(passport.initialize())
   app.use(passport.session())

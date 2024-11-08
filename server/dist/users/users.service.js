@@ -32,6 +32,19 @@ let UsersService = class UsersService {
         const users = await this.userRepository.findAll({ include: { all: true } });
         return users;
     }
+    async findByEmail(email) {
+        return await this.userRepository.findOne({
+            where: {
+                email,
+            }
+        });
+    }
+    async findOne(id) {
+        return this.userRepository.findOne({
+            where: { id },
+            attributes: ['email', 'id']
+        });
+    }
 };
 exports.UsersService = UsersService;
 exports.UsersService = UsersService = __decorate([

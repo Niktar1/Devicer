@@ -14,6 +14,8 @@ async function start() {
         resave: false,
         cookie: {
             maxAge: 60000,
+            httpOnly: true,
+            secure: false
         }
     }));
     app.use(passport.initialize());

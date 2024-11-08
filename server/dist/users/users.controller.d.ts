@@ -4,5 +4,6 @@ export declare class UsersController {
     private usersService;
     constructor(usersService: UsersService);
     create(userDto: CreateUserDto): Promise<import("./users.model").User>;
+    getProfile(req: any): Promise<import("./users.model").User>;
     getAll(): Promise<import("./users.model").User[]>;
 }

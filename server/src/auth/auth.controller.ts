@@ -1,42 +1,16 @@
-import { Controller, Get, Req, UseGuards } from '@nestjs/common';
-import { GoogleAuthGuard } from './utils/Guards';
-import { Request } from 'express';
+import { Controller, HttpCode, HttpStatus, Post, Req, UseGuards } from '@nestjs/common';
+import { AuthService } from './auth.service';
+import { LocalAuthGuard } from './guards/local-auth/local-auth.guard';
 
 @Controller('auth')
 export class AuthController {
-    // constructor(private authService: AuthService){}
+  constructor(private readonly authService: AuthService) {}
 
-    @Get('/login')
-    login() {
-        return { msg: '/login msg' };
-    }
-
-    // Passport
-    @Get('/logout')
-    logout() {
-        return { msg: '/logout msg' };
-    }
-
-    // Passport
-    @Get('/google')
-    @UseGuards(GoogleAuthGuard)
-    logGoogle() {
-        return { msg: '/google msg' };
-    }
-
-    @Get('/google/redirect')
-    @UseGuards(GoogleAuthGuard)
-    redirect() {
-        return { msg: 'ok' }
-    }
-
-    @Get('status')
-    user(@Req() request: Request) {
-        console.log(request.user)
-        if (request.user) {
-            return { msg: 'Authenticated' }
-        } else {
-            return { msg: 'Not Authenticated' }
-        }
-    }
+  @HttpCode(HttpStatus.OK)
+  @UseGuards(LocalAuthGuard)
+  @Post("login")
+  async login(@Req() req) {
+    const token = this.authService.login(req.user.id)
+    return {id: req.user.id, token};
+  }
 }

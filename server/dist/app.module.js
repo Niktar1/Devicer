@@ -15,8 +15,8 @@ const users_module_1 = require("./users/users.module");
 const roles_module_1 = require("./roles/roles.module");
 const roles_model_1 = require("./roles/roles.model");
 const user_roles_model_1 = require("./roles/user-roles.model");
-const auth_module_1 = require("./auth/auth.module");
 const passport_1 = require("@nestjs/passport");
+const auth_module_1 = require("./auth/auth.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;

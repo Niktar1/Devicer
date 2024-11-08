@@ -13,7 +13,13 @@ exports.User = void 0;
 const sequelize_typescript_1 = require("sequelize-typescript");
 const roles_model_1 = require("../roles/roles.model");
 const user_roles_model_1 = require("../roles/user-roles.model");
+const bcrypt = require("bcryptjs");
 let User = class User extends sequelize_typescript_1.Model {
+    static async hashPassword(user) {
+        if (user.password) {
+            user.password = await bcrypt.hash(user.password, 10);
+        }
+    }
 };
 exports.User = User;
 __decorate([
@@ -44,6 +50,13 @@ __decorate([
     (0, sequelize_typescript_1.BelongsToMany)(() => roles_model_1.Role, () => user_roles_model_1.UserRoles),
     __metadata("design:type", Array)
 ], User.prototype, "roles", void 0);
+__decorate([
+    sequelize_typescript_1.BeforeCreate,
+    sequelize_typescript_1.BeforeUpdate,
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [User]),
+    __metadata("design:returntype", Promise)
+], User, "hashPassword", null);
 exports.User = User = __decorate([
     (0, sequelize_typescript_1.Table)({ tableName: 'users' })
 ], User);
