@@ -19,6 +19,8 @@ const jwt_1 = require("@nestjs/jwt");
 const jwt_config_1 = require("./config/jwt.config");
 const config_1 = require("@nestjs/config");
 const jwt_strategy_1 = require("./utils/jwt.strategy");
+const refresh_jwt_config_1 = require("./config/refresh-jwt.config");
+const refresh_strategy_1 = require("./utils/refresh.strategy");
 let AuthModule = class AuthModule {
 };
 exports.AuthModule = AuthModule;
@@ -28,10 +30,17 @@ exports.AuthModule = AuthModule = __decorate([
             sequelize_1.SequelizeModule.forFeature([users_model_1.User]),
             jwt_1.JwtModule.registerAsync(jwt_config_1.default.asProvider()),
             config_1.ConfigModule.forFeature(jwt_config_1.default),
+            config_1.ConfigModule.forFeature(refresh_jwt_config_1.default),
             roles_module_1.RolesModule
         ],
         controllers: [auth_controller_1.AuthController],
-        providers: [auth_service_1.AuthService, users_service_1.UsersService, local_strategy_1.LocalStrategy, jwt_strategy_1.JwtStrategy],
+        providers: [
+            auth_service_1.AuthService,
+            users_service_1.UsersService,
+            local_strategy_1.LocalStrategy,
+            jwt_strategy_1.JwtStrategy,
+            refresh_strategy_1.RefreshJwtStrategy,
+        ],
         exports: [auth_service_1.AuthService]
     })
 ], AuthModule);

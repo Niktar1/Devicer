@@ -40,4 +40,7 @@ export class User extends Model<User, UserCreationAttrs> {
             user.password = await bcrypt.hash(user.password, 10); // 10 is the salt rounds
         }
     }
+
+    @Column({ type: DataType.STRING, allowNull: true })
+    hashedRefreshToken: string;
 }

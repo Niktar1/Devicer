@@ -15,5 +15,6 @@ export declare class User extends Model<User, UserCreationAttrs> {
     banned: boolean;
     roles: Role[];
     static hashPassword(user: User): Promise<void>;
+    hashedRefreshToken: string;
 }
 export {};

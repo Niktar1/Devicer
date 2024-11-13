@@ -51,6 +51,10 @@ __decorate([
     __metadata("design:type", Array)
 ], User.prototype, "roles", void 0);
 __decorate([
+    (0, sequelize_typescript_1.Column)({ type: sequelize_typescript_1.DataType.STRING, allowNull: true }),
+    __metadata("design:type", String)
+], User.prototype, "hashedRefreshToken", void 0);
+__decorate([
     sequelize_typescript_1.BeforeCreate,
     sequelize_typescript_1.BeforeUpdate,
     __metadata("design:type", Function),

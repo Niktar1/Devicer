@@ -22,6 +22,12 @@ let UsersService = class UsersService {
         this.userRepository = userRepository;
         this.roleService = roleService;
     }
+    async updateHashedRefreshToken(userId, hashedRefreshToken) {
+        return await this.userRepository.update({ hashedRefreshToken }, {
+            where: { id: userId },
+            returning: true
+        });
+    }
     async createUser(dto) {
         const user = await this.userRepository.create(dto);
         const role = await this.roleService.getRoleByValue("USER");
@@ -42,7 +48,7 @@ let UsersService = class UsersService {
     async findOne(id) {
         return this.userRepository.findOne({
             where: { id },
-            attributes: ['email', 'id']
+            attributes: ['email', 'id', 'hashedRefreshToken']
         });
     }
 };
