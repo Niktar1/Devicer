@@ -10,6 +10,16 @@ export class UsersService {
     constructor(@InjectModel(User) private userRepository: typeof User,
         private roleService: RolesService) { }
 
+    async updateHashedRefreshToken(userId: number, hashedRefreshToken: string) {
+        return await this.userRepository.update(
+            { hashedRefreshToken },
+            { 
+                where: { id: userId },
+                returning: true     // this will return the updated rows
+            }
+        );
+    }
+
     async createUser(dto: CreateUserDto) {
         const user = await this.userRepository.create(dto)
         const role = await this.roleService.getRoleByValue("USER")
@@ -33,7 +43,7 @@ export class UsersService {
     async findOne(id: number) {
         return this.userRepository.findOne({
             where: { id },
-            attributes: ['email','id']
+            attributes: ['email', 'id', 'hashedRefreshToken']
         });
     }
 
