@@ -2,6 +2,7 @@ import { UsersService } from 'src/users/users.service';
 import { JwtService } from '@nestjs/jwt';
 import refreshJwtConfig from './config/refresh-jwt.config';
 import { ConfigType } from '@nestjs/config';
+import { CurrentUser } from './types/current-user';
 export declare class AuthService {
     private userService;
     private jwtService;
@@ -28,4 +29,5 @@ export declare class AuthService {
         id: number;
     }>;
     logOut(userId: number): Promise<void>;
+    validateJwtUser(userId: number): Promise<CurrentUser>;
 }
