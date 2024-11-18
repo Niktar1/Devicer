@@ -46,10 +46,12 @@ let UsersService = class UsersService {
         });
     }
     async findOne(id) {
-        return this.userRepository.findOne({
+        const user = this.userRepository.findOne({
             where: { id },
-            attributes: ['email', 'id', 'hashedRefreshToken']
+            attributes: ['email', 'id', 'hashedRefreshToken'],
+            include: { all: true }
         });
+        return user;
     }
 };
 exports.UsersService = UsersService;

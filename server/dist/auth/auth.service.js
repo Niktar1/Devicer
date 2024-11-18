@@ -79,6 +79,14 @@ let AuthService = class AuthService {
     async logOut(userId) {
         await this.userService.updateHashedRefreshToken(userId, null);
     }
+    async validateJwtUser(userId) {
+        const user = await this.userService.findOne(userId);
+        if (!user)
+            throw new common_1.UnauthorizedException("User not found!");
+        const userRoles = user.roles.map(role => role.dataValues.value);
+        const currentUser = { id: user.id, role: userRoles };
+        return currentUser;
+    }
 };
 exports.AuthService = AuthService;
 exports.AuthService = AuthService = __decorate([

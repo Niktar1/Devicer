@@ -41,10 +41,13 @@ export class UsersService {
     }
 
     async findOne(id: number) {
-        return this.userRepository.findOne({
+        const user = this.userRepository.findOne({
             where: { id },
-            attributes: ['email', 'id', 'hashedRefreshToken']
+            attributes: ['email', 'id', 'hashedRefreshToken'],
+            // tweak include to return maybe only roles and not user-roles table
+            include: { all: true }
         });
+        return user;
     }
 
 }
