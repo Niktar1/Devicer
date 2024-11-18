@@ -1,6 +1,5 @@
 import { CanActivate, ExecutionContext, HttpException, Injectable } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
-import { Observable } from 'rxjs';
 import { ROLES_KEY } from 'src/auth/decorators/roles.decorator';
 
 @Injectable()

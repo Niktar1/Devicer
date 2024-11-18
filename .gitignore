@@ -4,3 +4,5 @@ keys.ts
 .development.env
 
 google.oauth.config.ts
+
+node_modules
