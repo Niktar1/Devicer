@@ -18,6 +18,8 @@ const create_user_dto_1 = require("./dto/create-user.dto");
 const users_service_1 = require("./users.service");
 const roles_decorator_1 = require("../auth/decorators/roles.decorator");
 const public_decorator_1 = require("../auth/decorators/public.decorator");
+const add_role_dto_1 = require("./dto/add-role.dto");
+const ban_user_dto_1 = require("./dto/ban-user.dto");
 let UsersController = class UsersController {
     constructor(usersService) {
         this.usersService = usersService;
@@ -30,6 +32,15 @@ let UsersController = class UsersController {
     }
     async getAll() {
         return this.usersService.getAllUsers();
+    }
+    deleteUser(userId) {
+        return this.usersService.deleteUser(userId);
+    }
+    addRole(dto) {
+        return this.usersService.addRole(dto);
+    }
+    ban(dto) {
+        return this.usersService.ban(dto);
     }
 };
 exports.UsersController = UsersController;
@@ -55,6 +66,30 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "getAll", null);
+__decorate([
+    (0, roles_decorator_1.Roles)("ADMIN"),
+    (0, common_1.Delete)(':id'),
+    __param(0, (0, common_1.Param)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number]),
+    __metadata("design:returntype", void 0)
+], UsersController.prototype, "deleteUser", null);
+__decorate([
+    (0, roles_decorator_1.Roles)("ADMIN"),
+    (0, common_1.Post)('roles'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [add_role_dto_1.AddRoleDto]),
+    __metadata("design:returntype", void 0)
+], UsersController.prototype, "addRole", null);
+__decorate([
+    (0, roles_decorator_1.Roles)("ADMIN"),
+    (0, common_1.Post)('ban'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [ban_user_dto_1.BanUserDto]),
+    __metadata("design:returntype", void 0)
+], UsersController.prototype, "ban", null);
 exports.UsersController = UsersController = __decorate([
     (0, common_1.Controller)('users'),
     __metadata("design:paramtypes", [users_service_1.UsersService])
