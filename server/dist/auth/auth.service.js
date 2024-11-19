@@ -87,6 +87,12 @@ let AuthService = class AuthService {
         const currentUser = { id: user.id, role: userRoles };
         return currentUser;
     }
+    async validateGoogleUser(googleUser) {
+        const user = await this.userService.findByEmail(googleUser.email);
+        if (user)
+            return user;
+        return await this.userService.createUser(googleUser);
+    }
 };
 exports.AuthService = AuthService;
 exports.AuthService = AuthService = __decorate([

@@ -24,7 +24,7 @@ export class User extends Model<User, UserCreationAttrs> {
     @Column({ type: DataType.STRING })
     displayName: string;
 
-    @Column({ type: DataType.INTEGER, allowNull: true })
+    @Column({ type: DataType.STRING, allowNull: true })
     googleId: string;
 
     @Column({ type: DataType.BOOLEAN, defaultValue: false })
