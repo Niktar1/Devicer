@@ -76,7 +76,7 @@ __decorate([
 ], UsersController.prototype, "deleteUser", null);
 __decorate([
     (0, roles_decorator_1.Roles)("ADMIN"),
-    (0, common_1.Post)('roles'),
+    (0, common_1.Post)('role'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [add_role_dto_1.AddRoleDto]),

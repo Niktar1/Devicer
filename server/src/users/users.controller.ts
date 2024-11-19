@@ -1,10 +1,11 @@
-import { Body, Controller, Delete, Get, Param, Post, Req } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Req, UsePipes } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UsersService } from './users.service';
 import { Roles } from 'src/auth/decorators/roles.decorator';
 import { Public } from 'src/auth/decorators/public.decorator';
 import { AddRoleDto } from './dto/add-role.dto';
 import { BanUserDto } from './dto/ban-user.dto';
+import { ValidationPipe } from 'src/pipes/validation.pipe';
 
 @Controller('users')
 export class UsersController {
@@ -37,7 +38,7 @@ export class UsersController {
     }
 
     @Roles("ADMIN")
-    @Post('roles')
+    @Post('role')
     addRole(@Body() dto: AddRoleDto) {
         return this.usersService.addRole(dto);
     }
