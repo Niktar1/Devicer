@@ -3,6 +3,7 @@ import { JwtService } from '@nestjs/jwt';
 import refreshJwtConfig from './config/refresh-jwt.config';
 import { ConfigType } from '@nestjs/config';
 import { CurrentUser } from './types/current-user';
+import { CreateUserDto } from 'src/users/dto/create-user.dto';
 export declare class AuthService {
     private userService;
     private jwtService;
@@ -30,4 +31,5 @@ export declare class AuthService {
     }>;
     logOut(userId: number): Promise<void>;
     validateJwtUser(userId: number): Promise<CurrentUser>;
+    validateGoogleUser(googleUser: CreateUserDto): Promise<import("../users/users.model").User>;
 }

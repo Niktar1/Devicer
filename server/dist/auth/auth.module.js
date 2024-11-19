@@ -21,6 +21,11 @@ const config_1 = require("@nestjs/config");
 const jwt_strategy_1 = require("./utils/jwt.strategy");
 const refresh_jwt_config_1 = require("./config/refresh-jwt.config");
 const refresh_strategy_1 = require("./utils/refresh.strategy");
+const core_1 = require("@nestjs/core");
+const jwt_auth_guard_1 = require("./guards/jwt-auth/jwt-auth.guard");
+const google_oauth_config_1 = require("../config/google.oauth.config");
+const roles_guard_1 = require("./guards/roles/roles.guard");
+const google_strategy_1 = require("./utils/google.strategy");
 let AuthModule = class AuthModule {
 };
 exports.AuthModule = AuthModule;
@@ -31,6 +36,7 @@ exports.AuthModule = AuthModule = __decorate([
             jwt_1.JwtModule.registerAsync(jwt_config_1.default.asProvider()),
             config_1.ConfigModule.forFeature(jwt_config_1.default),
             config_1.ConfigModule.forFeature(refresh_jwt_config_1.default),
+            config_1.ConfigModule.forFeature(google_oauth_config_1.default),
             roles_module_1.RolesModule
         ],
         controllers: [auth_controller_1.AuthController],
@@ -40,6 +46,15 @@ exports.AuthModule = AuthModule = __decorate([
             local_strategy_1.LocalStrategy,
             jwt_strategy_1.JwtStrategy,
             refresh_strategy_1.RefreshJwtStrategy,
+            google_strategy_1.GoogleStrategy,
+            {
+                provide: core_1.APP_GUARD,
+                useClass: jwt_auth_guard_1.JwtAuthGuard
+            },
+            {
+                provide: core_1.APP_GUARD,
+                useClass: roles_guard_1.RolesGuard
+            },
         ],
         exports: [auth_service_1.AuthService]
     })

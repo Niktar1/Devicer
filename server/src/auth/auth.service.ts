@@ -7,7 +7,7 @@ import refreshJwtConfig from './config/refresh-jwt.config';
 import { ConfigType } from '@nestjs/config';
 import * as argon2 from 'argon2';
 import { CurrentUser } from './types/current-user';
-import { Role } from 'src/roles/roles.model';
+import { CreateUserDto } from 'src/users/dto/create-user.dto';
 
 @Injectable()
 export class AuthService {
@@ -86,5 +86,11 @@ export class AuthService {
         const userRoles = user.roles.map(role => role.dataValues.value);
         const currentUser: CurrentUser = { id: user.id, role: userRoles };
         return currentUser;
+    }
+
+    async validateGoogleUser(googleUser:CreateUserDto) {
+        const user = await this.userService.findByEmail(googleUser.email);
+        if (user) return user;
+        return await this.userService.createUser(googleUser);
     }
 }

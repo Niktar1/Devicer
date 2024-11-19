@@ -7,6 +7,8 @@ export declare class AuthController {
         accesToken: string;
         refreshToken: string;
     }>;
+    googleLogin(): void;
+    googleCallback(req: any, res: any): Promise<void>;
     refreshToken(req: any): Promise<{
         id: number;
         accesToken: string;
