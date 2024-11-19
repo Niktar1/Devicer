@@ -34,6 +34,27 @@ let UsersService = class UsersService {
         await user.$set('roles', [role.id]);
         return user;
     }
+    async deleteUser(userId) {
+        return this.userRepository.destroy({ where: { id: userId } });
+    }
+    async addRole(dto) {
+        const user = await this.userRepository.findByPk(dto.userId);
+        const role = await this.roleService.getRoleByValue(dto.value);
+        if (role && user) {
+            await user.$add('role', role.id);
+            return dto;
+        }
+        throw new common_1.NotFoundException("User or Role not found");
+    }
+    async ban(dto) {
+        const user = await this.userRepository.findByPk(dto.userId);
+        if (!user) {
+            throw new common_1.NotFoundException("User not found");
+        }
+        user.banned = true;
+        await user.save();
+        return user;
+    }
     async getAllUsers() {
         const users = await this.userRepository.findAll({ include: { all: true } });
         return users;
