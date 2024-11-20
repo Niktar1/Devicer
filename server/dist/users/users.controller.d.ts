@@ -7,8 +7,8 @@ export declare class UsersController {
     constructor(usersService: UsersService);
     create(userDto: CreateUserDto): Promise<import("./users.model").User>;
     getProfile(req: any): Promise<import("./users.model").User>;
-    getAll(): Promise<import("./users.model").User[]>;
+    getAll(): Promise<void>;
     deleteUser(userId: number): Promise<number>;
     addRole(dto: AddRoleDto): Promise<AddRoleDto>;
-    ban(dto: BanUserDto): Promise<import("./users.model").User>;
+    ban(dto: BanUserDto): Promise<(import("./users.model").User | import("./banned-users.model").BannedUser)[]>;
 }

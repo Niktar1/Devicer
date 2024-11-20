@@ -17,6 +17,7 @@ const roles_model_1 = require("./roles/roles.model");
 const user_roles_model_1 = require("./roles/user-roles.model");
 const passport_1 = require("@nestjs/passport");
 const auth_module_1 = require("./auth/auth.module");
+const banned_users_model_1 = require("./users/banned-users.model");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -33,7 +34,7 @@ exports.AppModule = AppModule = __decorate([
                 username: process.env.POSTGRES_USER,
                 password: process.env.POSTGRES_PASSWORD,
                 database: process.env.POSTGRES_DB,
-                models: [users_model_1.User, roles_model_1.Role, user_roles_model_1.UserRoles],
+                models: [users_model_1.User, roles_model_1.Role, user_roles_model_1.UserRoles, banned_users_model_1.BannedUser],
                 autoLoadModels: true
             }),
             passport_1.PassportModule.register({ session: true }),
