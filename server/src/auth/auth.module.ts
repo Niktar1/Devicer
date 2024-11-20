@@ -17,15 +17,17 @@ import { JwtAuthGuard } from './guards/jwt-auth/jwt-auth.guard';
 import googleOauthConfig from 'src/config/google.oauth.config';
 import { RolesGuard } from './guards/roles/roles.guard';
 import { GoogleStrategy } from './utils/google.strategy';
+import { BannedUser } from 'src/users/banned-users.model';
 
 @Module({
   imports: [
-    SequelizeModule.forFeature([User]),
+    SequelizeModule.forFeature([User,BannedUser]),
     JwtModule.registerAsync(jwtConfig.asProvider()),
     ConfigModule.forFeature(jwtConfig),
     ConfigModule.forFeature(refreshJwtConfig),
     ConfigModule.forFeature(googleOauthConfig),
-    RolesModule
+    RolesModule,
+    BannedUser,
   ],
   controllers: [AuthController],
   providers: [

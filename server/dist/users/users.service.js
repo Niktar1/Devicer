@@ -17,10 +17,12 @@ const common_1 = require("@nestjs/common");
 const sequelize_1 = require("@nestjs/sequelize");
 const users_model_1 = require("./users.model");
 const roles_service_1 = require("../roles/roles.service");
+const banned_users_model_1 = require("./banned-users.model");
 let UsersService = class UsersService {
-    constructor(userRepository, roleService) {
+    constructor(userRepository, roleService, bannedUserModel) {
         this.userRepository = userRepository;
         this.roleService = roleService;
+        this.bannedUserModel = bannedUserModel;
     }
     async updateHashedRefreshToken(userId, hashedRefreshToken) {
         return await this.userRepository.update({ hashedRefreshToken }, {
@@ -53,7 +55,14 @@ let UsersService = class UsersService {
         }
         user.banned = true;
         await user.save();
-        return user;
+        const bannedUser = await this.bannedUserModel.create({ user_id: user.id, banReason: dto.banReason });
+        return [user, bannedUser];
+    }
+    async getBannedUsers() {
+        const bannedUsers = await this.userRepository.findAll({ include: [banned_users_model_1.BannedUser] });
+        console.log("\nnnn");
+        console.log(bannedUsers);
+        console.log("\n");
     }
     async getAllUsers() {
         const users = await this.userRepository.findAll({ include: { all: true } });
@@ -79,6 +88,7 @@ exports.UsersService = UsersService;
 exports.UsersService = UsersService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, sequelize_1.InjectModel)(users_model_1.User)),
-    __metadata("design:paramtypes", [Object, roles_service_1.RolesService])
+    __param(2, (0, sequelize_1.InjectModel)(banned_users_model_1.BannedUser)),
+    __metadata("design:paramtypes", [Object, roles_service_1.RolesService, Object])
 ], UsersService);
 //# sourceMappingURL=users.service.js.map

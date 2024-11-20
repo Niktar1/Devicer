@@ -15,6 +15,7 @@ const users_model_1 = require("./users.model");
 const roles_model_1 = require("../roles/roles.model");
 const user_roles_model_1 = require("../roles/user-roles.model");
 const roles_module_1 = require("../roles/roles.module");
+const banned_users_model_1 = require("./banned-users.model");
 let UsersModule = class UsersModule {
 };
 exports.UsersModule = UsersModule;
@@ -23,8 +24,8 @@ exports.UsersModule = UsersModule = __decorate([
         controllers: [users_controller_1.UsersController],
         providers: [users_service_1.UsersService],
         imports: [
-            sequelize_1.SequelizeModule.forFeature([users_model_1.User, roles_model_1.Role, user_roles_model_1.UserRoles]),
-            roles_module_1.RolesModule
+            sequelize_1.SequelizeModule.forFeature([users_model_1.User, roles_model_1.Role, user_roles_model_1.UserRoles, banned_users_model_1.BannedUser]),
+            roles_module_1.RolesModule,
         ]
     })
 ], UsersModule);

@@ -31,7 +31,7 @@ let UsersController = class UsersController {
         return this.usersService.findOne(req.user.id);
     }
     async getAll() {
-        return this.usersService.getAllUsers();
+        return this.usersService.getBannedUsers();
     }
     deleteUser(userId) {
         return this.usersService.deleteUser(userId);

@@ -25,10 +25,11 @@ export class UsersController {
 
     
     // Admin panel
+    
     @Roles("ADMIN")
     @Get()
     async getAll() {
-        return this.usersService.getAllUsers();
+        return this.usersService.getBannedUsers();
     }
 
     @Roles("ADMIN")

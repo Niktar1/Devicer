@@ -5,12 +5,15 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { RolesService } from 'src/roles/roles.service';
 import { AddRoleDto } from './dto/add-role.dto';
 import { BanUserDto } from './dto/ban-user.dto';
+import { BannedUser } from './banned-users.model';
 
 @Injectable()
 export class UsersService {
 
     constructor(@InjectModel(User) private userRepository: typeof User,
-        private roleService: RolesService) { }
+        private roleService: RolesService,
+        @InjectModel(BannedUser) private readonly bannedUserModel: typeof BannedUser,
+    ) { }
 
     async updateHashedRefreshToken(userId: number, hashedRefreshToken: string) {
         return await this.userRepository.update(
@@ -50,7 +53,16 @@ export class UsersService {
         }
         user.banned = true;
         await user.save();
-        return user;
+        const bannedUser = await this.bannedUserModel.create({user_id: user.id, banReason: dto.banReason})
+
+        return [user, bannedUser];
+    }
+
+    async getBannedUsers() {
+        const bannedUsers = await this.userRepository.findAll({include: [BannedUser]});
+        console.log("\nnnn");
+        console.log(bannedUsers);
+        console.log("\n");
     }
 
     async getAllUsers() {

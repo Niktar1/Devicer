@@ -26,18 +26,20 @@ const jwt_auth_guard_1 = require("./guards/jwt-auth/jwt-auth.guard");
 const google_oauth_config_1 = require("../config/google.oauth.config");
 const roles_guard_1 = require("./guards/roles/roles.guard");
 const google_strategy_1 = require("./utils/google.strategy");
+const banned_users_model_1 = require("../users/banned-users.model");
 let AuthModule = class AuthModule {
 };
 exports.AuthModule = AuthModule;
 exports.AuthModule = AuthModule = __decorate([
     (0, common_1.Module)({
         imports: [
-            sequelize_1.SequelizeModule.forFeature([users_model_1.User]),
+            sequelize_1.SequelizeModule.forFeature([users_model_1.User, banned_users_model_1.BannedUser]),
             jwt_1.JwtModule.registerAsync(jwt_config_1.default.asProvider()),
             config_1.ConfigModule.forFeature(jwt_config_1.default),
             config_1.ConfigModule.forFeature(refresh_jwt_config_1.default),
             config_1.ConfigModule.forFeature(google_oauth_config_1.default),
-            roles_module_1.RolesModule
+            roles_module_1.RolesModule,
+            banned_users_model_1.BannedUser,
         ],
         controllers: [auth_controller_1.AuthController],
         providers: [
