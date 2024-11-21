@@ -18,6 +18,11 @@ const user_roles_model_1 = require("./roles/user-roles.model");
 const passport_1 = require("@nestjs/passport");
 const auth_module_1 = require("./auth/auth.module");
 const banned_users_model_1 = require("./users/banned-users.model");
+const products_module_1 = require("./products/products.module");
+const files_module_1 = require("./files/files.module");
+const products_model_1 = require("./products/products.model");
+const serve_static_1 = require("@nestjs/serve-static");
+const path = require("path");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -27,6 +32,9 @@ exports.AppModule = AppModule = __decorate([
             config_1.ConfigModule.forRoot({
                 envFilePath: `.${process.env.NODE_ENV}.env`
             }),
+            serve_static_1.ServeStaticModule.forRoot({
+                rootPath: path.resolve(__dirname, 'static'),
+            }),
             sequelize_1.SequelizeModule.forRoot({
                 dialect: 'postgres',
                 host: process.env.POSTGRES_HOST,
@@ -34,13 +42,15 @@ exports.AppModule = AppModule = __decorate([
                 username: process.env.POSTGRES_USER,
                 password: process.env.POSTGRES_PASSWORD,
                 database: process.env.POSTGRES_DB,
-                models: [users_model_1.User, roles_model_1.Role, user_roles_model_1.UserRoles, banned_users_model_1.BannedUser],
+                models: [users_model_1.User, roles_model_1.Role, user_roles_model_1.UserRoles, banned_users_model_1.BannedUser, products_model_1.Product],
                 autoLoadModels: true
             }),
             passport_1.PassportModule.register({ session: true }),
             users_module_1.UsersModule,
             roles_module_1.RolesModule,
             auth_module_1.AuthModule,
+            products_module_1.ProductsModule,
+            files_module_1.FilesModule,
         ],
     })
 ], AppModule);

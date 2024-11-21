@@ -12,7 +12,7 @@ export class UsersService {
 
     constructor(@InjectModel(User) private userRepository: typeof User,
         private roleService: RolesService,
-        @InjectModel(BannedUser) private readonly bannedUserModel: typeof BannedUser,
+        @InjectModel(BannedUser) private readonly bannedUserRepo: typeof BannedUser,
     ) { }
 
     async updateHashedRefreshToken(userId: number, hashedRefreshToken: string) {
@@ -53,7 +53,7 @@ export class UsersService {
         }
         user.banned = true;
         await user.save();
-        const bannedUser = await this.bannedUserModel.create({user_id: user.id, banReason: dto.banReason})
+        const bannedUser = await this.bannedUserRepo.create({user_id: user.id, banReason: dto.banReason})
 
         return [user, bannedUser];
     }

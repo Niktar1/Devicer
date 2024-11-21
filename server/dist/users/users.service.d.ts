@@ -7,8 +7,8 @@ import { BannedUser } from './banned-users.model';
 export declare class UsersService {
     private userRepository;
     private roleService;
-    private readonly bannedUserModel;
-    constructor(userRepository: typeof User, roleService: RolesService, bannedUserModel: typeof BannedUser);
+    private readonly bannedUserRepo;
+    constructor(userRepository: typeof User, roleService: RolesService, bannedUserRepo: typeof BannedUser);
     updateHashedRefreshToken(userId: number, hashedRefreshToken: string): Promise<[affectedCount: number, affectedRows: User[]]>;
     createUser(dto: CreateUserDto): Promise<User>;
     deleteUser(userId: number): Promise<number>;

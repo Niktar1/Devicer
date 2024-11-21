@@ -31,8 +31,8 @@ export class User extends Model<User, UserCreationAttrs> {
     @Column({ type: DataType.BOOLEAN, defaultValue: false })
     banned: boolean;
 
-    @HasOne(() => BannedUser)
-    bannedUser: BannedUser;
+    @HasOne(() => BannedUser, {onDelete:'CASCADE',})
+    bannedUsers: BannedUser;
 
     @BelongsToMany(() => Role, () => UserRoles)
     roles: Role[];
