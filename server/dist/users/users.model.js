@@ -48,9 +48,9 @@ __decorate([
     __metadata("design:type", Boolean)
 ], User.prototype, "banned", void 0);
 __decorate([
-    (0, sequelize_typescript_1.HasOne)(() => banned_users_model_1.BannedUser),
+    (0, sequelize_typescript_1.HasOne)(() => banned_users_model_1.BannedUser, { onDelete: 'CASCADE', }),
     __metadata("design:type", banned_users_model_1.BannedUser)
-], User.prototype, "bannedUser", void 0);
+], User.prototype, "bannedUsers", void 0);
 __decorate([
     (0, sequelize_typescript_1.BelongsToMany)(() => roles_model_1.Role, () => user_roles_model_1.UserRoles),
     __metadata("design:type", Array)

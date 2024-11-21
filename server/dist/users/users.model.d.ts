@@ -14,7 +14,7 @@ export declare class User extends Model<User, UserCreationAttrs> {
     displayName: string;
     googleId: string;
     banned: boolean;
-    bannedUser: BannedUser;
+    bannedUsers: BannedUser;
     roles: Role[];
     static hashPassword(user: User): Promise<void>;
     hashedRefreshToken: string;

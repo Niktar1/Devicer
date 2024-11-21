@@ -19,10 +19,10 @@ const users_model_1 = require("./users.model");
 const roles_service_1 = require("../roles/roles.service");
 const banned_users_model_1 = require("./banned-users.model");
 let UsersService = class UsersService {
-    constructor(userRepository, roleService, bannedUserModel) {
+    constructor(userRepository, roleService, bannedUserRepo) {
         this.userRepository = userRepository;
         this.roleService = roleService;
-        this.bannedUserModel = bannedUserModel;
+        this.bannedUserRepo = bannedUserRepo;
     }
     async updateHashedRefreshToken(userId, hashedRefreshToken) {
         return await this.userRepository.update({ hashedRefreshToken }, {
@@ -55,7 +55,7 @@ let UsersService = class UsersService {
         }
         user.banned = true;
         await user.save();
-        const bannedUser = await this.bannedUserModel.create({ user_id: user.id, banReason: dto.banReason });
+        const bannedUser = await this.bannedUserRepo.create({ user_id: user.id, banReason: dto.banReason });
         return [user, bannedUser];
     }
     async getBannedUsers() {

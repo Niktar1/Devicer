@@ -9,11 +9,19 @@ import { UserRoles } from './roles/user-roles.model';
 import { PassportModule } from '@nestjs/passport';
 import { AuthModule } from './auth/auth.module';
 import { BannedUser } from './users/banned-users.model';
+import { ProductsModule } from './products/products.module';
+import { FilesModule } from './files/files.module';
+import { Product } from './products/products.model';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import * as path from 'path';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       envFilePath: `.${process.env.NODE_ENV}.env`
+    }),
+    ServeStaticModule.forRoot({
+      rootPath: path.resolve(__dirname, 'static'),
     }),
     SequelizeModule.forRoot({
       dialect: 'postgres',
@@ -22,7 +30,7 @@ import { BannedUser } from './users/banned-users.model';
       username: process.env.POSTGRES_USER,
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_DB,
-      models: [User, Role, UserRoles, BannedUser],
+      models: [User, Role, UserRoles, BannedUser, Product],
       autoLoadModels: true
     }),
     // Registring passport into app module
@@ -30,6 +38,8 @@ import { BannedUser } from './users/banned-users.model';
     UsersModule,
     RolesModule,
     AuthModule,
+    ProductsModule,
+    FilesModule,
   ],
 })
 export class AppModule { }
