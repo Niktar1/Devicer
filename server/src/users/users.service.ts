@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { User } from './users.model';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -26,6 +26,9 @@ export class UsersService {
     }
 
     async createUser(dto: CreateUserDto) {
+        const existingUser = await this.findByEmail(dto.email)
+        
+        if (existingUser) throw new ConflictException('User with that email already exists')
         const user = await this.userRepository.create(dto)
         const role = await this.roleService.getRoleByValue("USER")
         await user.$set('roles', [role.id])
@@ -40,7 +43,7 @@ export class UsersService {
         const user = await this.userRepository.findByPk(dto.userId);
         const role = await this.roleService.getRoleByValue(dto.value);
         if (role && user) {
-            await user.$add('role', role.id);
+            await user.$add('roles', role.id);
             return dto;
         }
         throw new NotFoundException("User or Role not found")

@@ -15,6 +15,7 @@ const roles_model_1 = require("../roles/roles.model");
 const user_roles_model_1 = require("../roles/user-roles.model");
 const bcrypt = require("bcryptjs");
 const banned_users_model_1 = require("./banned-users.model");
+const ratings_model_1 = require("../ratings/ratings.model");
 let User = class User extends sequelize_typescript_1.Model {
     static async hashPassword(user) {
         if (user.password) {
@@ -55,6 +56,10 @@ __decorate([
     (0, sequelize_typescript_1.BelongsToMany)(() => roles_model_1.Role, () => user_roles_model_1.UserRoles),
     __metadata("design:type", Array)
 ], User.prototype, "roles", void 0);
+__decorate([
+    (0, sequelize_typescript_1.HasMany)(() => ratings_model_1.Rating),
+    __metadata("design:type", Array)
+], User.prototype, "ratings", void 0);
 __decorate([
     (0, sequelize_typescript_1.Column)({ type: sequelize_typescript_1.DataType.STRING, allowNull: true }),
     __metadata("design:type", String)

@@ -5,7 +5,6 @@ import { Roles } from 'src/auth/decorators/roles.decorator';
 import { Public } from 'src/auth/decorators/public.decorator';
 import { AddRoleDto } from './dto/add-role.dto';
 import { BanUserDto } from './dto/ban-user.dto';
-import { ValidationPipe } from 'src/pipes/validation.pipe';
 
 @Controller('users')
 export class UsersController {

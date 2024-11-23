@@ -30,7 +30,6 @@ let RolesController = class RolesController {
 };
 exports.RolesController = RolesController;
 __decorate([
-    (0, roles_decorator_1.Roles)('ADMIN'),
     (0, common_1.Post)(),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
@@ -38,7 +37,6 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], RolesController.prototype, "create", null);
 __decorate([
-    (0, roles_decorator_1.Roles)('ADMIN'),
     (0, common_1.Get)('/:value'),
     __param(0, (0, common_1.Param)('value')),
     __metadata("design:type", Function),
@@ -46,6 +44,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], RolesController.prototype, "getByValue", null);
 exports.RolesController = RolesController = __decorate([
+    (0, roles_decorator_1.Roles)('ADMIN'),
     (0, common_1.Controller)('roles'),
     __metadata("design:paramtypes", [roles_service_1.RolesService])
 ], RolesController);

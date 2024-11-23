@@ -11,6 +11,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Product = void 0;
 const sequelize_typescript_1 = require("sequelize-typescript");
+const product_info_model_1 = require("./product-info.model");
+const categories_model_1 = require("../category/categories.model");
+const product_categories_model_1 = require("../category/product-categories.model");
+const ratings_model_1 = require("../ratings/ratings.model");
 let Product = class Product extends sequelize_typescript_1.Model {
 };
 exports.Product = Product;
@@ -42,6 +46,18 @@ __decorate([
     (0, sequelize_typescript_1.Column)({ type: sequelize_typescript_1.DataType.INTEGER, allowNull: true }),
     __metadata("design:type", Number)
 ], Product.prototype, "countStock", void 0);
+__decorate([
+    (0, sequelize_typescript_1.HasOne)(() => product_info_model_1.ProductInfo, { onDelete: 'CASCADE', }),
+    __metadata("design:type", product_info_model_1.ProductInfo)
+], Product.prototype, "productInfo", void 0);
+__decorate([
+    (0, sequelize_typescript_1.BelongsToMany)(() => categories_model_1.Category, () => product_categories_model_1.ProductCategory),
+    __metadata("design:type", Array)
+], Product.prototype, "categories", void 0);
+__decorate([
+    (0, sequelize_typescript_1.HasMany)(() => ratings_model_1.Rating),
+    __metadata("design:type", Array)
+], Product.prototype, "ratings", void 0);
 exports.Product = Product = __decorate([
     (0, sequelize_typescript_1.Table)({ tableName: 'products' })
 ], Product);

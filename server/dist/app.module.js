@@ -23,6 +23,12 @@ const files_module_1 = require("./files/files.module");
 const products_model_1 = require("./products/products.model");
 const serve_static_1 = require("@nestjs/serve-static");
 const path = require("path");
+const product_info_model_1 = require("./products/product-info.model");
+const categories_module_1 = require("./category/categories.module");
+const categories_model_1 = require("./category/categories.model");
+const product_categories_model_1 = require("./category/product-categories.model");
+const ratings_module_1 = require("./ratings/ratings.module");
+const ratings_model_1 = require("./ratings/ratings.model");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -42,7 +48,7 @@ exports.AppModule = AppModule = __decorate([
                 username: process.env.POSTGRES_USER,
                 password: process.env.POSTGRES_PASSWORD,
                 database: process.env.POSTGRES_DB,
-                models: [users_model_1.User, roles_model_1.Role, user_roles_model_1.UserRoles, banned_users_model_1.BannedUser, products_model_1.Product],
+                models: [users_model_1.User, roles_model_1.Role, user_roles_model_1.UserRoles, banned_users_model_1.BannedUser, products_model_1.Product, product_info_model_1.ProductInfo, categories_model_1.Category, product_categories_model_1.ProductCategory, ratings_model_1.Rating],
                 autoLoadModels: true
             }),
             passport_1.PassportModule.register({ session: true }),
@@ -51,6 +57,8 @@ exports.AppModule = AppModule = __decorate([
             auth_module_1.AuthModule,
             products_module_1.ProductsModule,
             files_module_1.FilesModule,
+            categories_module_1.CategoriesModule,
+            ratings_module_1.RatingsModule,
         ],
     })
 ], AppModule);

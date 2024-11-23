@@ -31,6 +31,9 @@ let UsersService = class UsersService {
         });
     }
     async createUser(dto) {
+        const existingUser = await this.findByEmail(dto.email);
+        if (existingUser)
+            throw new common_1.ConflictException('User with that email already exists');
         const user = await this.userRepository.create(dto);
         const role = await this.roleService.getRoleByValue("USER");
         await user.$set('roles', [role.id]);
@@ -43,7 +46,7 @@ let UsersService = class UsersService {
         const user = await this.userRepository.findByPk(dto.userId);
         const role = await this.roleService.getRoleByValue(dto.value);
         if (role && user) {
-            await user.$add('role', role.id);
+            await user.$add('roles', role.id);
             return dto;
         }
         throw new common_1.NotFoundException("User or Role not found");

@@ -14,6 +14,12 @@ import { FilesModule } from './files/files.module';
 import { Product } from './products/products.model';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import * as path from 'path';
+import { ProductInfo } from './products/product-info.model';
+import { CategoriesModule } from './category/categories.module';
+import { Category } from './category/categories.model';
+import { ProductCategory } from './category/product-categories.model';
+import { RatingsModule } from './ratings/ratings.module';
+import { Rating } from './ratings/ratings.model';
 
 @Module({
   imports: [
@@ -30,7 +36,7 @@ import * as path from 'path';
       username: process.env.POSTGRES_USER,
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_DB,
-      models: [User, Role, UserRoles, BannedUser, Product],
+      models: [User, Role, UserRoles, BannedUser, Product, ProductInfo, Category, ProductCategory, Rating],
       autoLoadModels: true
     }),
     // Registring passport into app module
@@ -40,6 +46,8 @@ import * as path from 'path';
     AuthModule,
     ProductsModule,
     FilesModule,
+    CategoriesModule,
+    RatingsModule,
   ],
 })
 export class AppModule { }

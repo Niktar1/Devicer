@@ -1,4 +1,8 @@
-import { Column, DataType, ForeignKey, Model, Table } from "sequelize-typescript";
+import { BelongsToMany, Column, DataType, ForeignKey, HasMany, HasOne, Model, Table } from "sequelize-typescript";
+import { ProductInfo } from "./product-info.model";
+import { Category } from "src/category/categories.model";
+import { ProductCategory } from "src/category/product-categories.model";
+import { Rating } from "src/ratings/ratings.model";
 
 interface ProductCreationAttrs {
     name: string;
@@ -28,20 +32,15 @@ export class Product extends Model<Product, ProductCreationAttrs> {
     @Column({ type: DataType.ARRAY(DataType.STRING) }) // Array of image file names
     images: string[];
 
-    @Column({ type: DataType.INTEGER, allowNull: true})
+    @Column({ type: DataType.INTEGER, allowNull: true })
     countStock: number;
-    /*____________________________________________________________
-    @ForeignKey(() => ProductInfo)    
-    @Column({ type: DataType.INTEGER})
-    infoId: number;
 
-    //many to many as in user roles
-    @Column({ type: DataType.STRING})
+    @HasOne(() => ProductInfo, { onDelete: 'CASCADE', })
+    productInfo: ProductInfo;
+
+    @BelongsToMany(() => Category, () => ProductCategory)
     categories: Category[];
-    
-    @Column({ type: DataType.STRING, allowNull: true})
-    rating: string;
 
-    @Column({ type: DataType.STRING, allowNull: true})
-    reviews: string; */
+    @HasMany(() => Rating)
+    ratings: Rating[];
 }
