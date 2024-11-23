@@ -1,8 +1,9 @@
-import { BeforeCreate, BeforeUpdate, BelongsToMany, Column, DataType, HasOne, Model, Table } from "sequelize-typescript";
+import { BeforeCreate, BeforeUpdate, BelongsToMany, Column, DataType, HasMany, HasOne, Model, Table } from "sequelize-typescript";
 import { Role } from "src/roles/roles.model";
 import { UserRoles } from "src/roles/user-roles.model";
 import * as bcrypt from 'bcryptjs';
 import { BannedUser } from "./banned-users.model";
+import { Rating } from "src/ratings/ratings.model";
 
 interface UserCreationAttrs {
     email: string;
@@ -31,11 +32,14 @@ export class User extends Model<User, UserCreationAttrs> {
     @Column({ type: DataType.BOOLEAN, defaultValue: false })
     banned: boolean;
 
-    @HasOne(() => BannedUser, {onDelete:'CASCADE',})
+    @HasOne(() => BannedUser, { onDelete: 'CASCADE', })
     bannedUsers: BannedUser;
 
     @BelongsToMany(() => Role, () => UserRoles)
     roles: Role[];
+
+    @HasMany(() => Rating)
+    ratings: Rating[];
 
     @BeforeCreate
     @BeforeUpdate

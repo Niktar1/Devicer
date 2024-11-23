@@ -19,7 +19,7 @@ __decorate([
     __metadata("design:type", String)
 ], CreateProductDto.prototype, "name", void 0);
 __decorate([
-    (0, class_validator_1.IsString)({ message: 'Name should be a string' }),
+    (0, class_validator_1.IsString)({ message: 'Price should be a string' }),
     __metadata("design:type", String)
 ], CreateProductDto.prototype, "price", void 0);
 __decorate([
@@ -31,4 +31,12 @@ __decorate([
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", Array)
 ], CreateProductDto.prototype, "images", void 0);
+__decorate([
+    (0, class_validator_1.IsString)({ message: 'Description should be a string' }),
+    __metadata("design:type", String)
+], CreateProductDto.prototype, "description", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", Object)
+], CreateProductDto.prototype, "additionalInfo", void 0);
 //# sourceMappingURL=create-product.dto.js.map
