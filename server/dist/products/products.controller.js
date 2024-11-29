@@ -21,6 +21,7 @@ const roles_decorator_1 = require("../auth/decorators/roles.decorator");
 const add_product_info_dto_1 = require("./dto/add-product-info.dto");
 const product_category_dto_1 = require("./dto/product-category.dto");
 const categories_service_1 = require("../category/categories.service");
+const public_decorator_1 = require("../auth/decorators/public.decorator");
 let ProductsController = class ProductsController {
     constructor(productsService, categoriesService) {
         this.productsService = productsService;
@@ -55,6 +56,7 @@ let ProductsController = class ProductsController {
 };
 exports.ProductsController = ProductsController;
 __decorate([
+    (0, public_decorator_1.Public)(),
     (0, common_1.Get)(),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),

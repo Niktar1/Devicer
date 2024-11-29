@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Heebo:wght@100..900&display=swap');
+
 .App {
   text-align: center;
 }
@@ -32,6 +34,7 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
@@ -53,6 +56,7 @@
   background-color: #8b8e92;
   padding: 10px 30px;
 }
+
 /* Components */
 /* Home */
 .home {
@@ -79,7 +83,7 @@
 }
 
 
-.log-input{
+.log-input {
   width: 10%;
   border: 1px solid gray;
   padding: 7px;
@@ -91,6 +95,90 @@
 
 }
 
-.logform input{
+.logform input {
   margin: 0 auto;
+}
+
+/* Product */
+
+.cards_list {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+}
+
+.card {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+
+.product-card {
+  padding-bottom: 30px;
+
+  font-family: "Heebo";
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+  
+  color: #29292a;
+  border: 1px solid #dddddd;
+  border-radius: 20px;
+  transition: border 0.2s linear;
+  overflow: hidden;
+}
+
+.product-card:hover {
+  border-color: #e9393c;
+}
+
+.card__inner {
+  padding: 0 10px;
+}
+
+.product_image {
+  margin-bottom: 13px;
+  background-image: url("../public/xiaomi1.jpg");
+  background-size: 259px;
+}
+
+.product_image img {opacity: 0;}
+
+.product-name {
+  /* instead of margint should be categories list */
+  margin-top: 25px;
+  padding-bottom: 6px;
+}
+
+.product-price {
+  font-size: 18px;
+}
+
+.product-rating {
+  color: #fdc346;
+  font-size: 20px;
+  margin: 12px 0;
+}
+
+.btn-products {
+  padding: 7px 14px;
+
+  text-transform: uppercase;
+  font-weight: 500;
+  font-size: 12px;
+
+  transition: 0.25s linear; 
+  transition-property: color, background;
+  border: #dddddd 1px solid;
+  border-radius: 30px;
+}
+
+.btn-products:hover {
+  background-color: red;
+  color: #fff;
+}
+
+.devider { 
+  display: flex;
+  justify-content: space-evenly;
 }

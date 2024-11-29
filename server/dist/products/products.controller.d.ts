@@ -11,7 +11,7 @@ export declare class ProductsController {
     getProduct(productId: number): Promise<(import("./products.model").Product | {
         productCategories: string[];
     })[]>;
-    createProduct(dto: CreateProductDto, files: Express.Multer.File[]): Promise<(import("./products.model").Product | import("./product-info.model").ProductInfo)[]>;
+    createProduct(dto: CreateProductDto, files: Express.Multer.File[]): Promise<(import("./product-info.model").ProductInfo | import("./products.model").Product)[]>;
     deleteProduct(productId: number): Promise<number>;
     addInfo(dto: AddInfoDto, productId: number): Promise<import("./product-info.model").ProductInfo>;
     addCategoriesToProduct(dto: ProductCategoryDto): Promise<ProductCategoryDto>;

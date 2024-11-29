@@ -8,12 +8,13 @@ import { UserRoles } from 'src/roles/user-roles.model';
 import { RolesModule } from 'src/roles/roles.module';
 import { BannedUser } from './banned-users.model';
 import { Rating } from 'src/ratings/ratings.model';
+import { Basket } from 'src/baskets/baskets.model';
 
 @Module({
   controllers: [UsersController],
   providers: [UsersService],
   imports: [
-    SequelizeModule.forFeature([User, Role, UserRoles, BannedUser, Rating]),
+    SequelizeModule.forFeature([User, Role, UserRoles, BannedUser, Rating, Basket]),
     RolesModule,
   ],
   exports: [UsersService]

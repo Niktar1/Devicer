@@ -6,6 +6,7 @@ import { Roles } from 'src/auth/decorators/roles.decorator';
 import { AddInfoDto } from './dto/add-product-info.dto';
 import { ProductCategoryDto } from './dto/product-category.dto';
 import { CategoriesService } from 'src/category/categories.service';
+import { Public } from 'src/auth/decorators/public.decorator';
 
 @Controller('products')
 export class ProductsController {
@@ -13,6 +14,7 @@ export class ProductsController {
         private productsService: ProductsService,
         private categoriesService: CategoriesService) { }
 
+    @Public()
     @Get()
     getAllProducts() {
         return this.productsService.getAll();
@@ -25,7 +27,7 @@ export class ProductsController {
         const categoriesIds = productCategories.map(item => item.dataValues.categoryId);
         const categoriesValues = await this.categoriesService.getCategoryValuesByIds(categoriesIds);
 
-        return [product, {"productCategories": categoriesValues}];
+        return [product, { "productCategories": categoriesValues }];
     }
 
     @Roles("ADMIN")

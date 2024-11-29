@@ -29,6 +29,9 @@ const categories_model_1 = require("./category/categories.model");
 const product_categories_model_1 = require("./category/product-categories.model");
 const ratings_module_1 = require("./ratings/ratings.module");
 const ratings_model_1 = require("./ratings/ratings.model");
+const baskets_module_1 = require("./baskets/baskets.module");
+const baskets_model_1 = require("./baskets/baskets.model");
+const basket_products_1 = require("./baskets/basket-products");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -48,7 +51,19 @@ exports.AppModule = AppModule = __decorate([
                 username: process.env.POSTGRES_USER,
                 password: process.env.POSTGRES_PASSWORD,
                 database: process.env.POSTGRES_DB,
-                models: [users_model_1.User, roles_model_1.Role, user_roles_model_1.UserRoles, banned_users_model_1.BannedUser, products_model_1.Product, product_info_model_1.ProductInfo, categories_model_1.Category, product_categories_model_1.ProductCategory, ratings_model_1.Rating],
+                models: [
+                    users_model_1.User,
+                    roles_model_1.Role,
+                    user_roles_model_1.UserRoles,
+                    banned_users_model_1.BannedUser,
+                    products_model_1.Product,
+                    product_info_model_1.ProductInfo,
+                    categories_model_1.Category,
+                    product_categories_model_1.ProductCategory,
+                    ratings_model_1.Rating,
+                    baskets_model_1.Basket,
+                    basket_products_1.BasketProducts,
+                ],
                 autoLoadModels: true
             }),
             passport_1.PassportModule.register({ session: true }),
@@ -59,6 +74,7 @@ exports.AppModule = AppModule = __decorate([
             files_module_1.FilesModule,
             categories_module_1.CategoriesModule,
             ratings_module_1.RatingsModule,
+            baskets_module_1.BasketsModule,
         ],
     })
 ], AppModule);

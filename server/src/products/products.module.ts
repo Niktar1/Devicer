@@ -9,12 +9,13 @@ import { Category } from 'src/category/categories.model';
 import { ProductCategory } from 'src/category/product-categories.model';
 import { CategoriesModule } from 'src/category/categories.module';
 import { Rating } from 'src/ratings/ratings.model';
+import { BasketProducts } from 'src/baskets/basket-products';
 
 @Module({
   providers: [ProductsService],
   controllers: [ProductsController],
   imports: [
-    SequelizeModule.forFeature([Product, ProductInfo, Category, ProductCategory, Rating]),
+    SequelizeModule.forFeature([Product, ProductInfo, Category, ProductCategory, Rating, BasketProducts]),
     FilesModule,
     CategoriesModule
   ],

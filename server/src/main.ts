@@ -2,6 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger";
 import * as session from 'express-session';
+import * as cookieParser from 'cookie-parser';
 import * as passport from 'passport';
 import { ValidationPipe } from './pipes/validation.pipe';
 async function start() {
@@ -15,30 +16,33 @@ async function start() {
     resave: false, // Session will not be saved if unmodified
     cookie: {
       maxAge: 60000,
-      httpOnly: true, 
+      httpOnly: true,
       secure: false
     }
   }))
-  
+
+  app.use(cookieParser());
+
   //enable passport
   app.use(passport.initialize())
   app.use(passport.session())
 
   app.enableCors({
-    origin: 'http://localhost:3000', // React app URL
+    origin: 'http://localhost:3001', // React app URL
+    credentials: true,
   });
-  
+
   const config = new DocumentBuilder()
     .setTitle('BACKEND with Node.js. & Nest js')
     .setDescription('REST API Documentation')
     .setVersion('1.0.0')
     .addTag('Niktar1')
     .build()
-    const document = SwaggerModule.createDocument(app, config);
-    SwaggerModule.setup('/api/docs', app, document)
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('/api/docs', app, document)
 
-    app.useGlobalPipes(new ValidationPipe())
-    
+  app.useGlobalPipes(new ValidationPipe())
+
   await app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
 }
 start();

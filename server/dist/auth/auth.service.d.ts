@@ -32,4 +32,5 @@ export declare class AuthService {
     logOut(userId: number): Promise<void>;
     validateJwtUser(userId: number): Promise<CurrentUser>;
     validateGoogleUser(googleUser: CreateUserDto): Promise<import("../users/users.model").User>;
+    verifyJwtToken(token: string): Promise<any>;
 }

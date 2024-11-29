@@ -3,6 +3,7 @@ import { ProductInfo } from "./product-info.model";
 import { Category } from "src/category/categories.model";
 import { ProductCategory } from "src/category/product-categories.model";
 import { Rating } from "src/ratings/ratings.model";
+import { BasketProducts } from "src/baskets/basket-products";
 
 interface ProductCreationAttrs {
     name: string;
@@ -43,4 +44,7 @@ export class Product extends Model<Product, ProductCreationAttrs> {
 
     @HasMany(() => Rating)
     ratings: Rating[];
+
+    @HasMany(() => BasketProducts, { onDelete: 'CASCADE', })
+    basketProduct: BasketProducts;
 }
