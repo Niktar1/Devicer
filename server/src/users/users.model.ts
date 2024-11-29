@@ -4,6 +4,7 @@ import { UserRoles } from "src/roles/user-roles.model";
 import * as bcrypt from 'bcryptjs';
 import { BannedUser } from "./banned-users.model";
 import { Rating } from "src/ratings/ratings.model";
+import { Basket } from "src/baskets/baskets.model";
 
 interface UserCreationAttrs {
     email: string;
@@ -40,6 +41,9 @@ export class User extends Model<User, UserCreationAttrs> {
 
     @HasMany(() => Rating)
     ratings: Rating[];
+
+    @HasOne(() => Basket, { onDelete: 'CASCADE', })
+    basket: Basket;
 
     @BeforeCreate
     @BeforeUpdate

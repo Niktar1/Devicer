@@ -4,6 +4,7 @@ const core_1 = require("@nestjs/core");
 const app_module_1 = require("./app.module");
 const swagger_1 = require("@nestjs/swagger");
 const session = require("express-session");
+const cookieParser = require("cookie-parser");
 const passport = require("passport");
 const validation_pipe_1 = require("./pipes/validation.pipe");
 async function start() {
@@ -19,10 +20,12 @@ async function start() {
             secure: false
         }
     }));
+    app.use(cookieParser());
     app.use(passport.initialize());
     app.use(passport.session());
     app.enableCors({
-        origin: 'http://localhost:3000',
+        origin: 'http://localhost:3001',
+        credentials: true,
     });
     const config = new swagger_1.DocumentBuilder()
         .setTitle('BACKEND with Node.js. & Nest js')

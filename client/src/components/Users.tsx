@@ -2,9 +2,13 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
-const Users = () => {
-  const [users, setUsers] = useState([]);
+interface User {
+  id: number;
+  email: string;
+}
 
+const Users = () => {
+  const [users, setUsers] = useState<User[]>([]);
   useEffect(() => {
     const fetchUsers = async () => {
       const response = await axios.get('http://localhost:5000/users'); // NestJS API URL

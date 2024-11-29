@@ -93,6 +93,23 @@ let AuthService = class AuthService {
             return user;
         return await this.userService.createUser(googleUser);
     }
+    async verifyJwtToken(token) {
+        try {
+            const decoded = this.jwtService.verify(token, { secret: process.env.JWT_SECRET });
+            console.log("\n DecodedFrom AuthService: \n");
+            console.log(decoded);
+            console.log();
+            return decoded;
+        }
+        catch (error) {
+            if (error instanceof Error && error.message === 'jwt expired') {
+                throw new Error('Token has expired');
+            }
+            else {
+                throw new Error('Invalid token');
+            }
+        }
+    }
 };
 exports.AuthService = AuthService;
 exports.AuthService = AuthService = __decorate([

@@ -24,13 +24,14 @@ let AuthController = class AuthController {
     constructor(authService) {
         this.authService = authService;
     }
-    async login(req) {
-        return this.authService.login(req.user.id);
+    async login(req, res) {
+        const response = await this.authService.login(req.user.id);
+        res.cookie('jwtAccessToken', response.accesToken, 'jwtRefreshToken', response.refreshToken, { httpOnly: true }).redirect('http://localhost:3001');
     }
     googleLogin() { }
     async googleCallback(req, res) {
         const response = await this.authService.login(req.user.id);
-        res.redirect(`http://localhost:3001?token=${response.accesToken}`);
+        res.cookie('jwtToken', response.accesToken, { httpOnly: true, maxAge: 3600000 }).redirect('http://localhost:3001');
     }
     refreshToken(req) {
         return this.authService.refreshToken(req.user.id);
@@ -46,8 +47,9 @@ __decorate([
     (0, common_1.UseGuards)(local_auth_guard_1.LocalAuthGuard),
     (0, common_1.Post)("login"),
     __param(0, (0, common_1.Req)()),
+    __param(1, (0, common_1.Res)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
+    __metadata("design:paramtypes", [Object, Object]),
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "login", null);
 __decorate([

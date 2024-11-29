@@ -20,6 +20,9 @@ import { Category } from './category/categories.model';
 import { ProductCategory } from './category/product-categories.model';
 import { RatingsModule } from './ratings/ratings.module';
 import { Rating } from './ratings/ratings.model';
+import { BasketsModule } from './baskets/baskets.module';
+import { Basket } from './baskets/baskets.model';
+import { BasketProducts } from './baskets/basket-products';
 
 @Module({
   imports: [
@@ -36,7 +39,19 @@ import { Rating } from './ratings/ratings.model';
       username: process.env.POSTGRES_USER,
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_DB,
-      models: [User, Role, UserRoles, BannedUser, Product, ProductInfo, Category, ProductCategory, Rating],
+      models: [
+        User, 
+        Role, 
+        UserRoles, 
+        BannedUser, 
+        Product, 
+        ProductInfo, 
+        Category, 
+        ProductCategory, 
+        Rating,
+        Basket,
+        BasketProducts,
+      ],
       autoLoadModels: true
     }),
     // Registring passport into app module
@@ -48,6 +63,7 @@ import { Rating } from './ratings/ratings.model';
     FilesModule,
     CategoriesModule,
     RatingsModule,
+    BasketsModule,
   ],
 })
 export class AppModule { }

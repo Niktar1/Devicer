@@ -15,6 +15,7 @@ const product_info_model_1 = require("./product-info.model");
 const categories_model_1 = require("../category/categories.model");
 const product_categories_model_1 = require("../category/product-categories.model");
 const ratings_model_1 = require("../ratings/ratings.model");
+const basket_products_1 = require("../baskets/basket-products");
 let Product = class Product extends sequelize_typescript_1.Model {
 };
 exports.Product = Product;
@@ -58,6 +59,10 @@ __decorate([
     (0, sequelize_typescript_1.HasMany)(() => ratings_model_1.Rating),
     __metadata("design:type", Array)
 ], Product.prototype, "ratings", void 0);
+__decorate([
+    (0, sequelize_typescript_1.HasMany)(() => basket_products_1.BasketProducts, { onDelete: 'CASCADE', }),
+    __metadata("design:type", basket_products_1.BasketProducts)
+], Product.prototype, "basketProduct", void 0);
 exports.Product = Product = __decorate([
     (0, sequelize_typescript_1.Table)({ tableName: 'products' })
 ], Product);

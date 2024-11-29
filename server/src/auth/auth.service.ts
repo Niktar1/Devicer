@@ -81,16 +81,32 @@ export class AuthService {
 
     async validateJwtUser(userId: number) {
         const user = await this.userService.findOne(userId);
-        
+
         if (!user) throw new UnauthorizedException("User not found!")
         const userRoles = user.roles.map(role => role.dataValues.value);
         const currentUser: CurrentUser = { id: user.id, role: userRoles };
         return currentUser;
     }
 
-    async validateGoogleUser(googleUser:CreateUserDto) {
+    async validateGoogleUser(googleUser: CreateUserDto) {
         const user = await this.userService.findByEmail(googleUser.email);
         if (user) return user;
         return await this.userService.createUser(googleUser);
+    }
+
+    async verifyJwtToken(token: string) {
+        try {
+            const decoded = this.jwtService.verify(token, { secret: process.env.JWT_SECRET });
+            console.log("\n DecodedFrom AuthService: \n");
+            console.log(decoded);
+            console.log();
+            return decoded;
+        } catch (error) {
+            if (error instanceof Error && error.message === 'jwt expired') {
+                throw new Error('Token has expired');
+            } else {
+                throw new Error('Invalid token');
+            }
+        }
     }
 }

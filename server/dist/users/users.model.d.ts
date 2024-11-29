@@ -2,6 +2,7 @@ import { Model } from "sequelize-typescript";
 import { Role } from "src/roles/roles.model";
 import { BannedUser } from "./banned-users.model";
 import { Rating } from "src/ratings/ratings.model";
+import { Basket } from "src/baskets/baskets.model";
 interface UserCreationAttrs {
     email: string;
     password?: string;
@@ -18,6 +19,7 @@ export declare class User extends Model<User, UserCreationAttrs> {
     bannedUsers: BannedUser;
     roles: Role[];
     ratings: Rating[];
+    basket: Basket;
     static hashPassword(user: User): Promise<void>;
     hashedRefreshToken: string;
 }

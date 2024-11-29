@@ -18,6 +18,7 @@ const categories_model_1 = require("../category/categories.model");
 const product_categories_model_1 = require("../category/product-categories.model");
 const categories_module_1 = require("../category/categories.module");
 const ratings_model_1 = require("../ratings/ratings.model");
+const basket_products_1 = require("../baskets/basket-products");
 let ProductsModule = class ProductsModule {
 };
 exports.ProductsModule = ProductsModule;
@@ -26,7 +27,7 @@ exports.ProductsModule = ProductsModule = __decorate([
         providers: [products_service_1.ProductsService],
         controllers: [products_controller_1.ProductsController],
         imports: [
-            sequelize_1.SequelizeModule.forFeature([products_model_1.Product, product_info_model_1.ProductInfo, categories_model_1.Category, product_categories_model_1.ProductCategory, ratings_model_1.Rating]),
+            sequelize_1.SequelizeModule.forFeature([products_model_1.Product, product_info_model_1.ProductInfo, categories_model_1.Category, product_categories_model_1.ProductCategory, ratings_model_1.Rating, basket_products_1.BasketProducts]),
             files_module_1.FilesModule,
             categories_module_1.CategoriesModule
         ],
