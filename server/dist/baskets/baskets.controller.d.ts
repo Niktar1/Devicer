@@ -9,7 +9,7 @@ export declare class BasketsController {
     getProduct({ productId }: {
         productId: number;
     }): Promise<import("../products/products.model").Product>;
-    getBasket(req: any, res: any): Promise<import("./baskets.model").Basket>;
+    getBasket(req: any, res: any): Promise<void | import("./baskets.model").Basket>;
     getBasketProducts(req: any): Promise<import("./basket-products").BasketProducts[]>;
     addProduct(req: any, { productId }: {
         productId: number;

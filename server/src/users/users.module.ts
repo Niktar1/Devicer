@@ -9,12 +9,14 @@ import { RolesModule } from 'src/roles/roles.module';
 import { BannedUser } from './banned-users.model';
 import { Rating } from 'src/ratings/ratings.model';
 import { Basket } from 'src/baskets/baskets.model';
+import { ShippingInfo } from '../shipping-info/shipping-info.model';
+import { Order } from 'src/orders/orders.model';
 
 @Module({
   controllers: [UsersController],
   providers: [UsersService],
   imports: [
-    SequelizeModule.forFeature([User, Role, UserRoles, BannedUser, Rating, Basket]),
+    SequelizeModule.forFeature([User, Role, UserRoles, BannedUser, Rating, Basket, ShippingInfo, Order]),
     RolesModule,
   ],
   exports: [UsersService]

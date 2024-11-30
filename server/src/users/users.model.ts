@@ -5,6 +5,8 @@ import * as bcrypt from 'bcryptjs';
 import { BannedUser } from "./banned-users.model";
 import { Rating } from "src/ratings/ratings.model";
 import { Basket } from "src/baskets/baskets.model";
+import { ShippingInfo } from "../shipping-info/shipping-info.model";
+import { Order } from "src/orders/orders.model";
 
 interface UserCreationAttrs {
     email: string;
@@ -44,6 +46,12 @@ export class User extends Model<User, UserCreationAttrs> {
 
     @HasOne(() => Basket, { onDelete: 'CASCADE', })
     basket: Basket;
+
+    @HasMany(() => ShippingInfo, { onDelete: 'CASCADE', })
+    shippingInfo: ShippingInfo[];
+
+    @HasMany(() => Order, { onDelete: 'CASCADE', })
+    orders: Order[]
 
     @BeforeCreate
     @BeforeUpdate

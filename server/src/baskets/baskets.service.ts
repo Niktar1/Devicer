@@ -24,10 +24,15 @@ export class BasketsService {
         if (!userId && !anonymousId) throw new NotFoundException("No basket Id was provided")
     }
 
-    async createBasket(userId?: number) {
+    async createBasket(userId?: number, rewriteId?: number) {
+        if (rewriteId && userId) {
+            return await this.basketRepository.create({ userId: rewriteId })
+        }
+
         if (userId) {
             return await this.basketRepository.create({ userId })
         }
+
         if (!userId) console.log("createBasket NO userId");
         return await this.basketRepository.create()
     }
@@ -56,5 +61,21 @@ export class BasketsService {
 
     async getBasketProducts(basketId: number) {
         return await this.basketProductsRepo.findAll({ where: { basketId: basketId } })
+    }
+
+    async combineBaskets(userId: number, anonymousId: number) {
+        const anonymousBasket = await this.basketRepository.findOne({ where: { anonymousId: anonymousId } })
+        const anonymousBasketProducts = await this.basketProductsRepo.findAll({ where: { basketId: anonymousBasket.id } })
+        const userBasket = await this.basketRepository.findOne({ where: { userId: userId } })
+
+        anonymousBasketProducts.forEach((basket_product) => {
+            basket_product.basketId = userBasket.id
+            basket_product.save()
+        })
+
+
+
+
+        // return await this.basketProductsRepo.findAll({ where: { basketId: basketId } })
     }
 }

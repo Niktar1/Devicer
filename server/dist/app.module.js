@@ -32,6 +32,11 @@ const ratings_model_1 = require("./ratings/ratings.model");
 const baskets_module_1 = require("./baskets/baskets.module");
 const baskets_model_1 = require("./baskets/baskets.model");
 const basket_products_1 = require("./baskets/basket-products");
+const shipping_info_model_1 = require("./shipping-info/shipping-info.model");
+const shipping_info_module_1 = require("./shipping-info/shipping-info.module");
+const orders_module_1 = require("./orders/orders.module");
+const orders_model_1 = require("./orders/orders.model");
+const order_items_model_1 = require("./orders/order-items.model");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -63,6 +68,9 @@ exports.AppModule = AppModule = __decorate([
                     ratings_model_1.Rating,
                     baskets_model_1.Basket,
                     basket_products_1.BasketProducts,
+                    shipping_info_model_1.ShippingInfo,
+                    orders_model_1.Order,
+                    order_items_model_1.OrderItem,
                 ],
                 autoLoadModels: true
             }),
@@ -75,6 +83,8 @@ exports.AppModule = AppModule = __decorate([
             categories_module_1.CategoriesModule,
             ratings_module_1.RatingsModule,
             baskets_module_1.BasketsModule,
+            shipping_info_module_1.ShippingInfoModule,
+            orders_module_1.OrdersModule,
         ],
     })
 ], AppModule);

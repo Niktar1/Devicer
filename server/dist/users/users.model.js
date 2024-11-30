@@ -17,6 +17,8 @@ const bcrypt = require("bcryptjs");
 const banned_users_model_1 = require("./banned-users.model");
 const ratings_model_1 = require("../ratings/ratings.model");
 const baskets_model_1 = require("../baskets/baskets.model");
+const shipping_info_model_1 = require("../shipping-info/shipping-info.model");
+const orders_model_1 = require("../orders/orders.model");
 let User = class User extends sequelize_typescript_1.Model {
     static async hashPassword(user) {
         if (user.password) {
@@ -65,6 +67,14 @@ __decorate([
     (0, sequelize_typescript_1.HasOne)(() => baskets_model_1.Basket, { onDelete: 'CASCADE', }),
     __metadata("design:type", baskets_model_1.Basket)
 ], User.prototype, "basket", void 0);
+__decorate([
+    (0, sequelize_typescript_1.HasMany)(() => shipping_info_model_1.ShippingInfo, { onDelete: 'CASCADE', }),
+    __metadata("design:type", Array)
+], User.prototype, "shippingInfo", void 0);
+__decorate([
+    (0, sequelize_typescript_1.HasMany)(() => orders_model_1.Order, { onDelete: 'CASCADE', }),
+    __metadata("design:type", Array)
+], User.prototype, "orders", void 0);
 __decorate([
     (0, sequelize_typescript_1.Column)({ type: sequelize_typescript_1.DataType.STRING, allowNull: true }),
     __metadata("design:type", String)

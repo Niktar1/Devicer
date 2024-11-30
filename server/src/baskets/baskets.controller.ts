@@ -13,9 +13,9 @@ export class BasketsController {
         private authService: AuthService,) { }
 
     @Post('getProduct')
-        async getProduct(@Body() { productId }: { productId: number }) {
-            return await this.productsService.getById(productId)
-        }
+    async getProduct(@Body() { productId }: { productId: number }) {
+        return await this.productsService.getById(productId)
+    }
 
     @Get()
     async getBasket(@Req() req, @Res() res) {
@@ -24,6 +24,26 @@ export class BasketsController {
             const anonymousId = req.cookies.anonymousId;
             console.log("getBasket.jwtToken: " + jwtToken);
             console.log("\ngetBasket.anonymousId: " + anonymousId);
+            if (jwtToken & anonymousId) {
+                const anonymousBasket = await this.basketsService.getUserBasket(anonymousId)
+                const anonumousBasketProducts = await this.basketsService.getBasketProducts(anonymousBasket.id)
+
+                const decoded = await this.authService.verifyJwtToken(jwtToken)
+                if (decoded.sub) {
+                    const userBasket = await this.basketsService.getUserBasket(null, decoded.sub);
+                    const userBasketProducts = await this.basketsService.getBasketProducts(userBasket.id)
+
+                    if (userBasketProducts.length! > 0 && anonumousBasketProducts.length > 0) {
+                        const combinedBasket = await this.basketsService.combineBaskets(userBasket.id, anonymousBasket.id)
+                        return combinedBasket;
+                    }
+
+                    if (userBasket) return userBasket;
+
+                    return await this.basketsService.createBasket(decoded.sub);
+                }
+            }
+
 
             if (jwtToken) {
                 const decoded = await this.authService.verifyJwtToken(jwtToken)
@@ -35,6 +55,10 @@ export class BasketsController {
                     console.log(userBasket.id); //
 
                     if (!userBasket) {
+                        const anonymousBasket = await this.basketsService.getUserBasket(anonymousId)
+                        if (anonymousBasket) {
+                            return await this.basketsService.createBasket(decoded.sub, anonymousBasket.id);
+                        }
                         console.log(`creating new Basket for user: ${userBasket.userId}`) //
                         return await this.basketsService.createBasket(decoded.sub);
                     }
