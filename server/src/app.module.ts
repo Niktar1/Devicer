@@ -23,6 +23,11 @@ import { Rating } from './ratings/ratings.model';
 import { BasketsModule } from './baskets/baskets.module';
 import { Basket } from './baskets/baskets.model';
 import { BasketProducts } from './baskets/basket-products';
+import { ShippingInfo } from './shipping-info/shipping-info.model';
+import { ShippingInfoModule } from './shipping-info/shipping-info.module';
+import { OrdersModule } from './orders/orders.module';
+import { Order } from './orders/orders.model';
+import { OrderItem } from './orders/order-items.model';
 
 @Module({
   imports: [
@@ -51,6 +56,9 @@ import { BasketProducts } from './baskets/basket-products';
         Rating,
         Basket,
         BasketProducts,
+        ShippingInfo,
+        Order,
+        OrderItem,
       ],
       autoLoadModels: true
     }),
@@ -64,6 +72,8 @@ import { BasketProducts } from './baskets/basket-products';
     CategoriesModule,
     RatingsModule,
     BasketsModule,
+    ShippingInfoModule,
+    OrdersModule,
   ],
 })
 export class AppModule { }
